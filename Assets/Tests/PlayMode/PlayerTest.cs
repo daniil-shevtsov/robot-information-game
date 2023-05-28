@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
+
+public class PlayerTest
+{
+    private GameObject playerObject;
+    private Player player;
+
+    [OneTimeSetUp]
+    public void Setup()
+    {
+        playerObject = MonoBehaviour.Instantiate(
+            Resources.Load<GameObject>("Prefabs/Player"),
+            new Vector3(0.0f, 0.0f, 0.0f),
+            Quaternion.identity
+        );
+        player = playerObject.GetComponent<Player>();
+    }
+
+    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
+    // `yield return null;` to skip a frame.
+    [UnityTest]
+    public IEnumerator PlayerTestWithEnumeratorPasses()
+    {
+        // Use the Assert class to test conditions.
+        // Use yield to skip a frame.
+        yield return null;
+    }
+}
