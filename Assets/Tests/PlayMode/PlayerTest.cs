@@ -20,13 +20,23 @@ public class PlayerTest
         player = playerObject.GetComponent<Player>();
     }
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
+    [UnityTest]
+    public IEnumerator PlayerShouldStayOnTheGround()
+    {
+        playerObject.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+        yield return null;
+        Assert.That(0f, Is.EqualTo(playerObject.transform.position.y).Within(0.01));
+        yield return null;
+        Assert.That(0f, Is.EqualTo(playerObject.transform.position.y).Within(0.01));
+    }
+
     [UnityTest]
     public IEnumerator PlayerShouldFallWhenInAir()
     {
         playerObject.transform.position = new Vector3(0.0f, 10.0f, 0.0f);
         yield return null;
-        Assert.AreEqual(new Vector3(0.0f, 0.0f, 0.0f), playerObject.transform.position);
+        Assert.That(8f, Is.EqualTo(playerObject.transform.position.y).Within(0.01));
+        yield return null;
+        Assert.That(6f, Is.EqualTo(playerObject.transform.position.y).Within(0.01));
     }
 }

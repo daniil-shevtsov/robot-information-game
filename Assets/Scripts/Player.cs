@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(0f, 0f, 0f);
+        Vector3 newPosition = transform.position - new Vector3(0f, 2f, 0f);
+        if (newPosition.y > 0f)
+        {
+            transform.position = newPosition;
+        }
     }
 }
