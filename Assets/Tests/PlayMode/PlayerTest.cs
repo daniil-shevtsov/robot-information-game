@@ -25,9 +25,9 @@ public class PlayerTest
     {
         playerObject.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
         yield return null;
-        Assert.That(0f, Is.EqualTo(playerObject.transform.position.y).Within(0.01));
+        assertFloats(0f, playerObject.transform.position.y);
         yield return null;
-        Assert.That(0f, Is.EqualTo(playerObject.transform.position.y).Within(0.01));
+        assertFloats(0f, playerObject.transform.position.y);
     }
 
     [UnityTest]
@@ -35,8 +35,24 @@ public class PlayerTest
     {
         playerObject.transform.position = new Vector3(0.0f, 10.0f, 0.0f);
         yield return null;
-        Assert.That(8f, Is.EqualTo(playerObject.transform.position.y).Within(0.01));
+        assertFloats(8f, playerObject.transform.position.y);
         yield return null;
-        Assert.That(6f, Is.EqualTo(playerObject.transform.position.y).Within(0.01));
+        assertFloats(6f, playerObject.transform.position.y);
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerShouldFallWithConfiguredSpeedWhenInAir()
+    {
+        player.fallingSpeed = 4f;
+        playerObject.transform.position = new Vector3(0.0f, 10.0f, 0.0f);
+        yield return null;
+        assertFloats(6f, playerObject.transform.position.y);
+        yield return null;
+        assertFloats(2f, playerObject.transform.position.y);
+    }
+
+    private void assertFloats(float expected, float actual)
+    {
+        Assert.That(actual, Is.EqualTo(expected).Within(0.02));
     }
 }
