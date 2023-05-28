@@ -9,6 +9,8 @@ public class PlayerTest
     private GameObject playerObject;
     private Player player;
 
+    private FakeTimeWrapper fakeTimeWrapper = new FakeTimeWrapper();
+
     [OneTimeSetUp]
     public void Setup()
     {
@@ -18,6 +20,9 @@ public class PlayerTest
             Quaternion.identity
         );
         player = playerObject.GetComponent<Player>();
+        player.timeWrapper = fakeTimeWrapper;
+
+        player.fallingSpeed = 2.0f;
     }
 
     [UnityTest]
