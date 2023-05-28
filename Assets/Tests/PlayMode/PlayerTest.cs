@@ -9,7 +9,8 @@ public class PlayerTest
     private GameObject playerObject;
     private Player player;
 
-    private FakeTimeWrapper fakeTimeWrapper = new FakeTimeWrapper();
+    private FakeTimeWrapper timeWrapper = new FakeTimeWrapper();
+    private FakeInputWrapper inputWrapper = new FakeInputWrapper();
 
     [OneTimeSetUp]
     public void Setup()
@@ -20,7 +21,8 @@ public class PlayerTest
             Quaternion.identity
         );
         player = playerObject.GetComponent<Player>();
-        player.timeWrapper = fakeTimeWrapper;
+        player.timeWrapper = timeWrapper;
+        player.inputWrapper = inputWrapper;
 
         player.fallingSpeed = 2.0f;
         player.walkingSpeed = 1.5f;
@@ -60,10 +62,10 @@ public class PlayerTest
     [UnityTest]
     public IEnumerator ShouldStepForward()
     {
-        player.onInput(0f, 1f);
+        inputWrapper.pressKey(KeyCode.W);
         yield return null;
         assertFloats(1.5f, playerObject.transform.position.z);
-        player.onInput(0f, 1f);
+        inputWrapper.pressKey(KeyCode.W);
         yield return null;
         assertFloats(3f, playerObject.transform.position.z);
     }
@@ -71,10 +73,10 @@ public class PlayerTest
     [UnityTest]
     public IEnumerator ShouldStepRight()
     {
-        player.onInput(1f, 0f);
+        inputWrapper.pressKey(KeyCode.D);
         yield return null;
         assertFloats(1.5f, playerObject.transform.position.x);
-        player.onInput(1f, 0f);
+        inputWrapper.pressKey(KeyCode.D);
         yield return null;
         assertFloats(3f, playerObject.transform.position.x);
     }
