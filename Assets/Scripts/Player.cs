@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float fallingSpeed = 0.002f;
+    public float walkingSpeed = 0.05f;
     public TimeWrapper timeWrapper = new UnityTimeWrapper();
 
     // Start is called before the first frame update
@@ -19,5 +20,12 @@ public class Player : MonoBehaviour
         {
             transform.position = newPosition;
         }
+    }
+
+    public void onInput(float right, float forward)
+    {
+        transform.position =
+            transform.position
+            + new Vector3(right, 0f, forward) * walkingSpeed * timeWrapper.deltaTime();
     }
 }
