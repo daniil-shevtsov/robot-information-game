@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -9,23 +10,34 @@ public class PlayerTest
     private GameObject playerObject;
     private Player player;
 
-    private FakeTimeWrapper timeWrapper = new FakeTimeWrapper();
-    private FakeInputWrapper inputWrapper = new FakeInputWrapper();
+    private FakeTimeWrapper timeWrapper;
+    private FakeInputWrapper inputWrapper;
 
     [OneTimeSetUp]
-    public void Setup()
+    public void TestSuitSetup()
     {
         playerObject = MonoBehaviour.Instantiate(
             Resources.Load<GameObject>("Prefabs/Player"),
             new Vector3(0.0f, 0.0f, 0.0f),
             Quaternion.identity
         );
+    }
+
+    [SetUp]
+    public void EachTestSetup()
+    {
+        timeWrapper = new FakeTimeWrapper();
+        inputWrapper = new FakeInputWrapper();
+
         player = playerObject.GetComponent<Player>();
         player.timeWrapper = timeWrapper;
         player.inputWrapper = inputWrapper;
 
         player.fallingSpeed = 2.0f;
         player.walkingSpeed = 1.5f;
+
+        player.Init();
+        player.transform.position = new Vector3(0f, 0f, 0f);
     }
 
     [UnityTest]
@@ -79,6 +91,20 @@ public class PlayerTest
         inputWrapper.pressKey(KeyCode.D);
         yield return null;
         assertFloats(3f, playerObject.transform.position.x);
+    }
+
+    [UnityTest]
+    public IEnumerator ShouldStepDiagonally()
+    {
+        inputWrapper.pressKeys(new List<KeyCode>() { KeyCode.W, KeyCode.D });
+        yield return null;
+        Assert.That(inputWrapper.useCounter, Is.EqualTo(1));
+        assertFloats(1.5f, playerObject.transform.position.x);
+        assertFloats(1.5f, playerObject.transform.position.y);
+        inputWrapper.pressKeys(new List<KeyCode>() { KeyCode.W, KeyCode.D });
+        yield return null;
+        assertFloats(3f, playerObject.transform.position.x);
+        assertFloats(3f, playerObject.transform.position.y);
     }
 
     private void assertFloats(float expected, float actual)

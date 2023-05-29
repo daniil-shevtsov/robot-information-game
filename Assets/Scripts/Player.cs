@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inputWrapper.subscribe(handleKeyPressed);
+        Init();
     }
 
     // Update is called once per frame
@@ -32,25 +32,29 @@ public class Player : MonoBehaviour
         inputWrapper.update();
     }
 
+    public void Init()
+    {
+        inputWrapper.subscribe(handleKeyPressed);
+    }
+
     private void handleKeyPressed(List<KeyCode> pressedKeys)
     {
-        var keyCode = pressedKeys[0];
         float forward = 0f;
         float right = 0f;
-        if (keyCode == KeyCode.W)
+        if (pressedKeys.Contains(KeyCode.W))
         {
             forward = 1f;
         }
-        else if (keyCode == KeyCode.S)
+        else if (pressedKeys.Contains(KeyCode.S))
         {
             forward = -1f;
         }
 
-        if (keyCode == KeyCode.A)
+        if (pressedKeys.Contains(KeyCode.A))
         {
             right = -1f;
         }
-        else if (keyCode == KeyCode.D)
+        else if (pressedKeys.Contains(KeyCode.D))
         {
             right = 1f;
         }

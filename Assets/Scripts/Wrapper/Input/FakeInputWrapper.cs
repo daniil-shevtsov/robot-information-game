@@ -4,17 +4,24 @@ using System.Collections.Generic;
 
 public class FakeInputWrapper : InputWrapper
 {
-    private Action<List<KeyCode>> pressedKeys;
+    public int useCounter = 0;
+    private Action<List<KeyCode>> pressedKeysAction;
 
     public void subscribe(Action<List<KeyCode>> pressedKeys)
     {
-        this.pressedKeys = pressedKeys;
+        this.pressedKeysAction = pressedKeys;
     }
 
     public void update() { }
 
-    public void pressKey(KeyCode keyCode)
+    public void pressKey(KeyCode pressedKey)
     {
-        pressedKeys(new List<KeyCode>() { keyCode });
+        pressKeys(new List<KeyCode>() { pressedKey });
+    }
+
+    public void pressKeys(List<KeyCode> pressedKeys)
+    {
+        useCounter++;
+        pressedKeysAction(pressedKeys);
     }
 }
