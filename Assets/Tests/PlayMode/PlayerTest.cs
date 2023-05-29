@@ -100,11 +100,11 @@ public class PlayerTest
         yield return null;
         Assert.That(inputWrapper.useCounter, Is.EqualTo(1));
         assertFloats(1.5f, playerObject.transform.position.x);
-        assertFloats(1.5f, playerObject.transform.position.y);
+        assertFloats(1.5f, playerObject.transform.position.z);
         inputWrapper.pressKeys(new List<KeyCode>() { KeyCode.W, KeyCode.D });
         yield return null;
         assertFloats(3f, playerObject.transform.position.x);
-        assertFloats(3f, playerObject.transform.position.y);
+        assertFloats(3f, playerObject.transform.position.z);
     }
 
     private void assertFloats(float expected, float actual)

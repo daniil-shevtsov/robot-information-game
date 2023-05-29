@@ -1,36 +1,24 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class UnityInputWrapper : InputWrapper
 {
-    private Action<List<KeyCode>> pressedKeys;
+    private Action<List<KeyCode>> pressedKeysAction;
 
     public void subscribe(Action<List<KeyCode>> pressedKeys)
     {
-        this.pressedKeys = pressedKeys;
+        pressedKeysAction = pressedKeys;
     }
 
     public void update()
     {
-        var inputString = Input.inputString;
-        Debug.Log($"inputString {inputString}");
-        if (inputString != "")
+        var usedKeys = new List<KeyCode>() { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
+        var pressedKeys = usedKeys.Where(key => Input.GetKey(key)).ToList();
+        if (pressedKeys.Any())
         {
-            var keyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), inputString.ToUpper());
-
-            if (keyCode != null)
-            {
-                Debug.Log($"key pressed {keyCode}");
-                if (pressedKeys != null)
-                {
-                    pressedKeys(new List<KeyCode>() { keyCode });
-                }
-                else
-                {
-                    Debug.Log("key pressed callback not set");
-                }
-            }
+            pressedKeysAction(pressedKeys);
         }
     }
 }

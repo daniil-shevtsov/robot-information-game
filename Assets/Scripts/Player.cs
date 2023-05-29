@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public float fallingSpeed = 0.002f;
 
     [NonSerialized]
-    public float walkingSpeed = 50f;
+    public float walkingSpeed = 5f;
     public TimeWrapper timeWrapper = new UnityTimeWrapper();
     public InputWrapper inputWrapper = new UnityInputWrapper();
 
