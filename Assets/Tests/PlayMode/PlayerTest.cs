@@ -94,17 +94,17 @@ public class PlayerTest
     }
 
     [UnityTest]
-    public IEnumerator ShouldStepDiagonally()
+    public IEnumerator ShouldStepDiagonallyWithHalfSpeed()
     {
         inputWrapper.pressKeys(new List<KeyCode>() { KeyCode.W, KeyCode.D });
         yield return null;
         Assert.That(inputWrapper.useCounter, Is.EqualTo(1));
-        assertFloats(1.5f, playerObject.transform.position.x);
-        assertFloats(1.5f, playerObject.transform.position.z);
+        assertFloats(0.75f, playerObject.transform.position.x);
+        assertFloats(0.75f, playerObject.transform.position.z);
         inputWrapper.pressKeys(new List<KeyCode>() { KeyCode.W, KeyCode.D });
         yield return null;
-        assertFloats(3f, playerObject.transform.position.x);
-        assertFloats(3f, playerObject.transform.position.z);
+        assertFloats(1.5f, playerObject.transform.position.x);
+        assertFloats(1.5f, playerObject.transform.position.z);
     }
 
     private void assertFloats(float expected, float actual)

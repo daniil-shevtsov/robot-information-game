@@ -64,9 +64,13 @@ public class Player : MonoBehaviour
     private void onInput(float right, float forward)
     {
         var oldPosition = transform.position;
+        var speed = walkingSpeed;
+        if (right != 0.0f && forward != 0.0f)
+        {
+            speed = walkingSpeed / 2;
+        }
         var newPosition =
-            transform.position
-            + new Vector3(right, 0f, forward) * walkingSpeed * timeWrapper.deltaTime();
+            transform.position + new Vector3(right, 0f, forward) * speed * timeWrapper.deltaTime();
 
         transform.position = newPosition;
         Debug.Log(
