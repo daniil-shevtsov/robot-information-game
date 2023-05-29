@@ -32,8 +32,9 @@ public class Player : MonoBehaviour
         inputWrapper.update();
     }
 
-    private void handleKeyPressed(KeyCode keyCode)
+    private void handleKeyPressed(List<KeyCode> pressedKeys)
     {
+        var keyCode = pressedKeys[0];
         float forward = 0f;
         float right = 0f;
         if (keyCode == KeyCode.W)

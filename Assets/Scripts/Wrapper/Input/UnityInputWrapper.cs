@@ -1,13 +1,14 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public class UnityInputWrapper : InputWrapper
 {
-    private Action<KeyCode> keyPressed;
+    private Action<List<KeyCode>> pressedKeys;
 
-    public void subscribe(Action<KeyCode> keyPressed)
+    public void subscribe(Action<List<KeyCode>> pressedKeys)
     {
-        this.keyPressed = keyPressed;
+        this.pressedKeys = pressedKeys;
     }
 
     public void update()
@@ -21,9 +22,9 @@ public class UnityInputWrapper : InputWrapper
             if (keyCode != null)
             {
                 Debug.Log($"key pressed {keyCode}");
-                if (keyPressed != null)
+                if (pressedKeys != null)
                 {
-                    keyPressed(keyCode);
+                    pressedKeys(new List<KeyCode>() { keyCode });
                 }
                 else
                 {
