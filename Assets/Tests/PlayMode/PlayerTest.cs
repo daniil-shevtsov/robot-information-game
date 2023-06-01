@@ -61,6 +61,16 @@ public class PlayerTest
     }
 
     [UnityTest]
+    public IEnumerator ShouldFallUntilOnTheGround()
+    {
+        playerObject.transform.position = new Vector3(0.0f, 3.0f, 0.0f);
+        yield return null;
+        assertFloats(1f, playerObject.transform.position.y);
+        yield return null;
+        assertFloats(0f, playerObject.transform.position.y);
+    }
+
+    [UnityTest]
     public IEnumerator ShouldFallWithConfiguredSpeedWhenInAir()
     {
         player.fallingSpeed = 4f;

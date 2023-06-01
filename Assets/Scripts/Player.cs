@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [NonSerialized]
-    public float fallingSpeed = 0.002f;
+    public float fallingSpeed = 3.9f;
 
     [NonSerialized]
     public float walkingSpeed = 5f;
@@ -22,12 +22,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 newPosition =
-            transform.position - new Vector3(0f, fallingSpeed, 0f) * timeWrapper.deltaTime();
-        if (newPosition.y > 0f)
+        float newY = transform.position.y - fallingSpeed * timeWrapper.deltaTime();
+
+        if (newY < 0f)
         {
-            transform.position = newPosition;
+            newY = 0f;
         }
+        Vector3 newPosition = new Vector3(transform.position.x, newY, transform.position.z);
+        transform.position = newPosition;
 
         inputWrapper.update();
     }
