@@ -10,8 +10,13 @@ public class Player : MonoBehaviour
 
     [NonSerialized]
     public float walkingSpeed = 5f;
+
+    [NonSerialized]
+    public float jumpingSpeed = 5f;
     public TimeWrapper timeWrapper = new UnityTimeWrapper();
     public InputWrapper inputWrapper = new UnityInputWrapper();
+
+    private bool isJumpPressed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +27,19 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float newY = transform.position.y - fallingSpeed * timeWrapper.deltaTime();
+        float currentY = transform.position.y;
+        float yChange = 0;
+        if (currentY > 0)
+        {
+            yChange = -fallingSpeed;
+        }
+        if (isJumpPressed)
+        {
+            yChange += jumpingSpeed;
+            isJumpPressed = false;
+        }
+
+        float newY = currentY + yChange * timeWrapper.deltaTime();
 
         if (newY < 0f)
         {
@@ -61,6 +78,11 @@ public class Player : MonoBehaviour
             right = 1f;
         }
         onInput(right, forward);
+
+        if (pressedKeys.Contains(KeyCode.Space))
+        {
+            isJumpPressed = true;
+        }
     }
 
     private void onInput(float right, float forward)

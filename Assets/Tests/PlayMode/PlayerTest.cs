@@ -35,6 +35,7 @@ public class PlayerTest
 
         player.fallingSpeed = 2.0f;
         player.walkingSpeed = 1.5f;
+        player.jumpingSpeed = 3f;
 
         player.Init();
         player.transform.position = new Vector3(0f, 0f, 0f);
@@ -115,6 +116,17 @@ public class PlayerTest
         yield return null;
         assertFloats(1.5f, playerObject.transform.position.x);
         assertFloats(1.5f, playerObject.transform.position.z);
+    }
+
+    [UnityTest]
+    public IEnumerator ShouldJump()
+    {
+        inputWrapper.pressKey(KeyCode.Space);
+        yield return null;
+        assertFloats(3.0f, playerObject.transform.position.y);
+        //inputWrapper.pressKey(KeyCode.Space);
+        yield return null;
+        assertFloats(1.0f, playerObject.transform.position.y);
     }
 
     private void assertFloats(float expected, float actual)

@@ -14,7 +14,14 @@ public class UnityInputWrapper : InputWrapper
 
     public void update()
     {
-        var usedKeys = new List<KeyCode>() { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
+        var usedKeys = new List<KeyCode>()
+        {
+            KeyCode.W,
+            KeyCode.A,
+            KeyCode.S,
+            KeyCode.D,
+            KeyCode.Space
+        };
         var pressedKeys = usedKeys.Where(key => Input.GetKey(key)).ToList();
         if (pressedKeys.Any())
         {
