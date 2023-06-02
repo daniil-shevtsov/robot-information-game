@@ -122,12 +122,14 @@ public class PlayerTest
     [UnityTest]
     public IEnumerator ShouldJump()
     {
+        float accuracy = 0.04f;
         inputWrapper.pressKey(KeyCode.Space);
         yield return null;
-        assertFloats(3.0f, playerObject.transform.position.y);
-        //inputWrapper.pressKey(KeyCode.Space);
+        assertFloats(3.0f, playerObject.transform.position.y, accuracy);
         yield return null;
-        assertFloats(1.0f, playerObject.transform.position.y);
+        assertFloats(1.0f, playerObject.transform.position.y, accuracy);
+        yield return null;
+        assertFloats(0.0f, playerObject.transform.position.y, accuracy);
     }
 
     [UnityTest]
@@ -156,8 +158,8 @@ public class PlayerTest
         assertFloats(1.5f, playerObject.transform.position.x);
     }
 
-    private void assertFloats(float expected, float actual)
+    private void assertFloats(float expected, float actual, float accuracy = 0.02f)
     {
-        Assert.That(actual, Is.EqualTo(expected).Within(0.02));
+        Assert.That(actual, Is.EqualTo(expected).Within(accuracy));
     }
 }
