@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public InputWrapper inputWrapper = new UnityInputWrapper();
 
     private Vector3 currentForce = new Vector3(0f, 0f, 0f);
+    private Vector3 acceleration = new Vector3(0f, 0f, 0f);
 
     private bool isJumpPressed = false;
 
@@ -88,8 +89,6 @@ public class Player : MonoBehaviour
         {
             speed = walkingSpeed / 2;
         }
-        var newPosition =
-            transform.position + new Vector3(right, 0f, forward) * speed * timeWrapper.deltaTime();
 
         applyForce(new Vector3(right, 0f, forward) * speed);
     }

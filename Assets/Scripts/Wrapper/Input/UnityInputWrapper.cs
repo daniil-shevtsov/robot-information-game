@@ -6,10 +6,16 @@ using System.Linq;
 public class UnityInputWrapper : InputWrapper
 {
     private Action<List<KeyCode>> pressedKeysAction;
+    private Action<Vector2> mouseRotationAction;
 
     public void subscribe(Action<List<KeyCode>> pressedKeys)
     {
         pressedKeysAction = pressedKeys;
+    }
+
+    public void subscribeMouse(Action<Vector2> mouseRotation)
+    {
+        mouseRotationAction = mouseRotation;
     }
 
     public void update()
@@ -27,5 +33,9 @@ public class UnityInputWrapper : InputWrapper
         {
             pressedKeysAction(pressedKeys);
         }
+
+        float horizontalRotation = Input.GetAxis("Mouse X");
+        float verticalRotation = Input.GetAxis("Mouse Y");
+        mouseRotationAction(new Vector2(horizontalRotation, verticalRotation));
     }
 }
