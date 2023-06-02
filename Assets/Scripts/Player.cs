@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public TimeWrapper timeWrapper = new UnityTimeWrapper();
     public InputWrapper inputWrapper = new UnityInputWrapper();
 
+    private Vector3 currentForce = new Vector3(0f, 0f, 0f);
+
     private bool isJumpPressed = false;
 
     // Start is called before the first frame update
@@ -39,14 +41,8 @@ public class Player : MonoBehaviour
             isJumpPressed = false;
         }
 
-        float newY = currentY + yChange * timeWrapper.deltaTime();
-
-        if (newY < 0f)
-        {
-            newY = 0f;
-        }
-        Vector3 newPosition = new Vector3(transform.position.x, newY, transform.position.z);
-        transform.position = newPosition;
+        Vector3 newForce = new Vector3(0f, yChange, 0f);
+        applyForce(newForce);
 
         inputWrapper.update();
     }
@@ -96,9 +92,23 @@ public class Player : MonoBehaviour
         var newPosition =
             transform.position + new Vector3(right, 0f, forward) * speed * timeWrapper.deltaTime();
 
+        applyForce(new Vector3(right, 0f, forward) * speed);
+    }
+
+    private void applyCurrentForce()
+    {
+        applyForce(currentForce);
+    }
+
+    private void applyForce(Vector3 force)
+    {
+        Vector3 newPosition = transform.position + force * timeWrapper.deltaTime();
+
+        if (newPosition.y < 0f)
+        {
+            newPosition.y = 0f;
+        }
+
         transform.position = newPosition;
-        Debug.Log(
-            $"walking speed {walkingSpeed} right: {right} forward {forward} old: {oldPosition} new: {newPosition}"
-        );
     }
 }
