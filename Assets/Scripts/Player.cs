@@ -29,9 +29,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float currentY = transform.position.y;
         float yChange = 0;
-        if (currentY > 0)
+        if (transform.position.y > 0)
         {
             yChange = -fallingSpeed;
         }
@@ -56,26 +55,26 @@ public class Player : MonoBehaviour
     {
         float forward = 0f;
         float right = 0f;
-        if (pressedKeys.Contains(KeyCode.W))
+        if (isPressed(pressedKeys, KeyCode.W))
         {
             forward = 1f;
         }
-        else if (pressedKeys.Contains(KeyCode.S))
+        else if (isPressed(pressedKeys, KeyCode.S))
         {
             forward = -1f;
         }
 
-        if (pressedKeys.Contains(KeyCode.A))
+        if (isPressed(pressedKeys, KeyCode.A))
         {
             right = -1f;
         }
-        else if (pressedKeys.Contains(KeyCode.D))
+        else if (isPressed(pressedKeys, KeyCode.D))
         {
             right = 1f;
         }
         onInput(right, forward);
 
-        if (pressedKeys.Contains(KeyCode.Space))
+        if (isPressed(pressedKeys, KeyCode.Space))
         {
             isJumpPressed = true;
         }
@@ -110,5 +109,10 @@ public class Player : MonoBehaviour
         }
 
         transform.position = newPosition;
+    }
+
+    private bool isPressed(List<KeyCode> pressedKeys, KeyCode key)
+    {
+        return pressedKeys.Contains(key);
     }
 }
