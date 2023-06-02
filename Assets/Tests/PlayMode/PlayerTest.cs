@@ -146,6 +146,16 @@ public class PlayerTest
         assertFloats(300.0f, playerObject.transform.rotation.eulerAngles.y);
     }
 
+    [UnityTest]
+    public IEnumerator ShouldWalkInDirectionOfCamera()
+    {
+        inputWrapper.moveMouse(90f, 0f);
+        yield return null;
+        inputWrapper.pressKey(KeyCode.W);
+        yield return null;
+        assertFloats(1.5f, playerObject.transform.position.x);
+    }
+
     private void assertFloats(float expected, float actual)
     {
         Assert.That(actual, Is.EqualTo(expected).Within(0.02));

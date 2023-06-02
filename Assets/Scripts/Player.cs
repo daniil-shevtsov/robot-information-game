@@ -98,7 +98,15 @@ public class Player : MonoBehaviour
             speed = walkingSpeed / 2;
         }
 
-        applyForce(new Vector3(right, 0f, forward) * speed);
+        applyForce(
+            Quaternion.Euler(
+                transform.eulerAngles.x,
+                transform.eulerAngles.y,
+                transform.eulerAngles.z
+            )
+                * new Vector3(right, 0f, forward)
+                * speed
+        );
     }
 
     private void applyCurrentForce()
