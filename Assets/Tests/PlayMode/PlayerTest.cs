@@ -129,6 +129,14 @@ public class PlayerTest
         assertFloats(1.0f, playerObject.transform.position.y);
     }
 
+    [UnityTest]
+    public IEnumerator ShouldRotateCameraHorizontally()
+    {
+        inputWrapper.moveMouse(2f, 0f);
+        yield return null;
+        assertFloats(0.0f, playerObject.transform.rotation.eulerAngles.y);
+    }
+
     private void assertFloats(float expected, float actual)
     {
         Assert.That(actual, Is.EqualTo(expected).Within(0.02));

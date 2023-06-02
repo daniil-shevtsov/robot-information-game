@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
     public void Init()
     {
         inputWrapper.subscribe(handleKeyPressed);
+        inputWrapper.subscribeMouse(handleMouseMoved);
     }
 
     private void handleKeyPressed(List<KeyCode> pressedKeys)
@@ -80,6 +81,8 @@ public class Player : MonoBehaviour
             isJumpPressed = true;
         }
     }
+
+    private void handleMouseMoved(Vector2 mouseRotation) { }
 
     private void onInput(float right, float forward)
     {
