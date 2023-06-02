@@ -39,6 +39,7 @@ public class PlayerTest
 
         player.Init();
         player.transform.position = new Vector3(0f, 0f, 0f);
+        player.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
     }
 
     [UnityTest]
@@ -130,11 +131,19 @@ public class PlayerTest
     }
 
     [UnityTest]
-    public IEnumerator ShouldRotateCameraHorizontally()
+    public IEnumerator ShouldRotateCameraHorizontallyClockwise()
     {
-        inputWrapper.moveMouse(2f, 0f);
+        inputWrapper.moveMouse(60f, 0f);
         yield return null;
-        assertFloats(0.0f, playerObject.transform.rotation.eulerAngles.y);
+        assertFloats(60.0f, playerObject.transform.rotation.eulerAngles.y);
+    }
+
+    [UnityTest]
+    public IEnumerator ShouldRotateCameraHorizontallyCounterclockwise()
+    {
+        inputWrapper.moveMouse(-60f, 0f);
+        yield return null;
+        assertFloats(300.0f, playerObject.transform.rotation.eulerAngles.y);
     }
 
     private void assertFloats(float expected, float actual)

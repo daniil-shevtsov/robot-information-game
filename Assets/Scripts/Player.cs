@@ -82,7 +82,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void handleMouseMoved(Vector2 mouseRotation) { }
+    private void handleMouseMoved(Vector2 mouseRotation)
+    {
+        Vector3 currentAngles = transform.eulerAngles;
+        currentAngles.y = transform.eulerAngles.y + mouseRotation.x;
+        transform.eulerAngles = currentAngles;
+    }
 
     private void onInput(float right, float forward)
     {
