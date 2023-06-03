@@ -8,6 +8,7 @@ using UnityEngine.TestTools;
 public class RobotBrainTest
 {
     private GameObject gameObject;
+    private GameObject robotBrainObject;
     private Player player;
 
     private FakeTimeWrapper timeWrapper;
@@ -21,6 +22,11 @@ public class RobotBrainTest
             new Vector3(0.0f, 0.0f, 0.0f),
             Quaternion.identity
         );
+        robotBrainObject = MonoBehaviour.Instantiate(
+            Resources.Load<GameObject>("Prefabs/RobotBrain"),
+            new Vector3(0.0f, 0.0f, 0.0f),
+            Quaternion.identity
+        );
     }
 
     [SetUp]
@@ -30,6 +36,7 @@ public class RobotBrainTest
         inputWrapper = new FakeInputWrapper();
 
         player = gameObject.GetComponent<Player>();
+        player.robotBrain = robotBrainObject.GetComponent<RobotBrain>();
         player.timeWrapper = timeWrapper;
         player.inputWrapper = inputWrapper;
 

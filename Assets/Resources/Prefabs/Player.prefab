@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ac40b17f57115342ade1a68f8bdee55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  robotBrain: {fileID: 4184122426723356288, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}
 --- !u!54 &6709654726409161040
 Rigidbody:
   m_ObjectHideFlags: 0

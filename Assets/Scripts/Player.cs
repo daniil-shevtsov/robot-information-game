@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     [NonSerialized]
     public float walkingSpeed = 5f;
 
+    public RobotBrain robotBrain;
+
     [NonSerialized]
     public float jumpingSpeed = 5f;
     public TimeWrapper timeWrapper = new UnityTimeWrapper();
