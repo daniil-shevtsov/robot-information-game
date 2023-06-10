@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class RobotBrain : MonoBehaviour
 {
-    public RectTransform mainPanel;
-    public RectTransform controlsPanel;
-    public RectTransform memoryPanel;
+    public GameObject mainPanel;
+    public GameObject controlsPanel;
+    public GameObject memoryPanel;
 
     // Start is called before the first frame update
     void Start() { }

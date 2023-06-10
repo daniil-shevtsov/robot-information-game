@@ -50,8 +50,16 @@ public class RobotBrainTest
     }
 
     [UnityTest]
-    public IEnumerator ShouldCompile()
+    public IEnumerator MainPanelShouldBeVisibleInitially()
     {
+        assertVisible(player.robotBrain.mainPanel, true);
+
         yield return null;
+    }
+
+    private void assertVisible(GameObject gameObject, bool isVisible)
+    {
+        float expectedAlpha = isVisible ? 1 : 0;
+        Assert.That(gameObject.GetComponent<CanvasGroup>().alpha, Is.EqualTo(expectedAlpha));
     }
 }
