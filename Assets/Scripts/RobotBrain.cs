@@ -25,6 +25,12 @@ public class RobotBrain : MonoBehaviour
         Panel currentPanel = menu.panels.Find(panel => panel.id == menu.getActivePanelId());
         MenuItem clickedItem = currentPanel.items.Find(item => item.id == buttonId);
         menu.setActivePaneId(clickedItem.openPanelId);
+        renderMenu(menu);
+    }
+
+    private void renderMenu(Menu menu)
+    {
+        //TODO: Render Unity UI items according to this state
     }
 
     private static Menu createMenu()
