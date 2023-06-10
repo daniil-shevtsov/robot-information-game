@@ -10,6 +10,7 @@ public class RobotBrainTest
     private GameObject gameObject;
     private GameObject robotBrainObject;
     private Player player;
+    private RobotBrain robotBrain;
 
     private FakeTimeWrapper timeWrapper;
     private FakeInputWrapper inputWrapper;
@@ -47,19 +48,31 @@ public class RobotBrainTest
         player.Init();
         player.transform.position = new Vector3(0f, 0f, 0f);
         player.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
+
+        robotBrain = robotBrainObject.GetComponent<RobotBrain>();
     }
 
     [UnityTest]
     public IEnumerator MainPanelShouldBeVisibleInitially()
     {
-        assertVisible(player.robotBrain.mainPanel, true);
+        assertVisible(robotBrain.mainPanel, true);
 
         yield return null;
     }
 
-    private void assertVisible(GameObject gameObject, bool isVisible)
+    [UnityTest]
+    public IEnumerator ControlsShouldOpenWhenControlsButtonClicked()
     {
-        float expectedAlpha = isVisible ? 1 : 0;
-        Assert.That(gameObject.GetComponent<CanvasGroup>().alpha, Is.EqualTo(expectedAlpha));
+        //player.robotBrain
+        assertVisible(robotBrain.mainPanel, true);
+
+        yield return null;
+    }
+
+    private void assertVisible(MyView view, bool expected)
+    {
+        Assert.That(view.isVisible(), Is.EqualTo(expected));
+        //float expectedAlpha = isVisible ? 1 : 0;
+        // Assert.That(gameObject.GetComponent<CanvasGroup>().alpha, Is.EqualTo(expectedAlpha));
     }
 }
