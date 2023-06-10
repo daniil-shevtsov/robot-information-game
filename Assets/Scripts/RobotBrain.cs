@@ -8,7 +8,10 @@ public class RobotBrain : MonoBehaviour
     public Panel mainPanel
     {
         get { return menu.panels[0]; }
-        set { }
+    }
+    public Panel controls
+    {
+        get { return menu.panels[1]; }
     }
 
     // Start is called before the first frame update
@@ -17,7 +20,12 @@ public class RobotBrain : MonoBehaviour
     // Update is called once per frame
     void Update() { }
 
-    public void click(string buttonId) { }
+    public void click(long buttonId)
+    {
+        Panel currentPanel = menu.panels.Find(panel => panel.id == menu.getActivePanelId());
+        MenuItem clickedItem = currentPanel.items.Find(item => item.id == buttonId);
+        menu.setActivePaneId(clickedItem.openPanelId);
+    }
 
     private static Menu createMenu()
     {
@@ -29,8 +37,8 @@ public class RobotBrain : MonoBehaviour
                     "Main Menu",
                     new List<MenuItem>()
                     {
-                        new MenuItem(0L, "Controls"),
-                        new MenuItem(1L, "Memory")
+                        new MenuItem(0L, "Controls", 1L),
+                        new MenuItem(1L, "Memory", 2L)
                     }
                 ),
                 new Panel(
@@ -59,19 +67,31 @@ public class RobotBrain : MonoBehaviour
 public class Menu
 {
     public List<Panel> panels { get; }
-    long activePanelId;
+    private long activePanelId;
 
     public Menu(List<Panel> panels)
     {
         this.panels = panels;
     }
+
+    public long getActivePanelId()
+    {
+        return activePanelId;
+    }
+
+    public void setActivePaneId(long activePanelId)
+    {
+        this.activePanelId = activePanelId;
+        panels.ForEach(panel => panel.setVisible(panel.id == activePanelId));
+    }
 }
 
 public class Panel : MyView
 {
-    long id;
+    public long id;
     string title;
-    List<MenuItem> items;
+    public List<MenuItem> items;
+    private bool isVisible = true;
 
     public Panel(long id, string title, List<MenuItem> items)
     {
@@ -82,23 +102,32 @@ public class Panel : MyView
 
     bool MyView.isVisible()
     {
-        return true;
+        return isVisible;
+    }
+
+    public void setVisible(bool isVisible)
+    {
+        this.isVisible = isVisible;
     }
 }
 
 public class MenuItem
 {
-    long id;
+    public long id;
     string title;
 
-    public MenuItem(long id, string title)
+    public long openPanelId;
+
+    public MenuItem(long id, string title, long openPanelId = -1L)
     {
         this.id = id;
         this.title = title;
+        this.openPanelId = openPanelId;
     }
 }
 
 public interface MyView
 {
     bool isVisible();
+    void setVisible(bool isVisible);
 }

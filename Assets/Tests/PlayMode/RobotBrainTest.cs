@@ -61,10 +61,11 @@ public class RobotBrainTest
     }
 
     [UnityTest]
-    public IEnumerator ControlsShouldOpenWhenControlsButtonClicked()
+    public IEnumerator ShouldSwitchToControlsWhenControlsClicked()
     {
-        //player.robotBrain
-        assertVisible(robotBrain.mainPanel, true);
+        robotBrain.click(robotBrain.mainPanel.items[0].id);
+        assertVisible(robotBrain.mainPanel, false);
+        assertVisible(robotBrain.controls, true);
 
         yield return null;
     }
