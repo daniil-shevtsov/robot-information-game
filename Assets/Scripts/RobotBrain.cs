@@ -45,24 +45,17 @@ public class RobotBrain : MonoBehaviour
 
         currentPanel.items.ForEach(item =>
         {
-            renderItem(item, new Vector3(20 * scaler * index, 0, 0));
+            renderItem(item, index);
             index++;
         });
     }
 
-    private void renderItem(MenuItem item, Vector2 position)
+    private void renderItem(MenuItem item, int index)
     {
-        // GameObject panel = GameObject.Instantiate(
-        //     codePanel,
-        //     transform.position,
-        //     transform.rotation
-        // );
-        // panel.transform.SetParent(transform, false);
-        // panel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-
         GameObject controls = GameObject.Instantiate(image, transform.position, transform.rotation);
         controls.transform.SetParent(codePanel.transform, false);
-        controls.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        RectTransform rectTransform = controls.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector2(index * rectTransform.rect.width, 0);
     }
 
     private static Menu createMenu()
