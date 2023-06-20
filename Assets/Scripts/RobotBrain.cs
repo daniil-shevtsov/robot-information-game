@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RobotBrain : MonoBehaviour
 {
@@ -56,6 +57,7 @@ public class RobotBrain : MonoBehaviour
         controls.transform.SetParent(codePanel.transform, false);
         RectTransform rectTransform = controls.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = new Vector2(index * rectTransform.rect.width, 0);
+        controls.GetComponent<TextMeshProUGUI>().text = item.title;
     }
 
     private static Menu createMenu()
@@ -145,7 +147,7 @@ public class Panel : MyView
 public class MenuItem
 {
     public long id;
-    string title;
+    public string title;
 
     public long openPanelId;
 
