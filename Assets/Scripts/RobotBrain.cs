@@ -37,19 +37,32 @@ public class RobotBrain : MonoBehaviour
 
     private void renderMenu(Menu menu)
     {
+        Panel currentPanel = menu.panels.Find(panel => panel.id == menu.getActivePanelId());
+
         float scaler = 0.0125f;
         Vector3 change = new Vector3(20 * scaler, 0, 0);
-        //TODO: Render Unity UI items according to this state
-        // GameObject obstacle = Instantiate(prefabList[1], this.transform, false) as GameObject;
+        int index = 0;
+
+        currentPanel.items.ForEach(item =>
+        {
+            renderItem(item, new Vector3(20 * scaler * index, 0, 0));
+            index++;
+        });
+    }
+
+    private void renderItem(MenuItem item, Vector2 position)
+    {
+        // GameObject panel = GameObject.Instantiate(
+        //     codePanel,
+        //     transform.position,
+        //     transform.rotation
+        // );
+        // panel.transform.SetParent(transform, false);
+        // panel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+
         GameObject controls = GameObject.Instantiate(image, transform.position, transform.rotation);
         controls.transform.SetParent(codePanel.transform, false);
-        GameObject controls2 = GameObject.Instantiate(
-            image,
-            transform.position,
-            transform.rotation
-        );
-        controls2.transform.position += change;
-        controls2.transform.SetParent(codePanel.transform, false);
+        controls.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
     }
 
     private static Menu createMenu()
