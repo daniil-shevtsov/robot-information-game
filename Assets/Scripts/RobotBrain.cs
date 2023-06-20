@@ -5,6 +5,10 @@ using UnityEngine;
 public class RobotBrain : MonoBehaviour
 {
     private Menu menu = createMenu();
+
+    public GameObject codePanel;
+    public GameObject image;
+
     public Panel mainPanel
     {
         get { return menu.panels[0]; }
@@ -15,7 +19,10 @@ public class RobotBrain : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start() { }
+    void Start()
+    {
+        renderMenu(menu);
+    }
 
     // Update is called once per frame
     void Update() { }
@@ -30,7 +37,19 @@ public class RobotBrain : MonoBehaviour
 
     private void renderMenu(Menu menu)
     {
+        float scaler = 0.0125f;
+        Vector3 change = new Vector3(20 * scaler, 0, 0);
         //TODO: Render Unity UI items according to this state
+        // GameObject obstacle = Instantiate(prefabList[1], this.transform, false) as GameObject;
+        GameObject controls = GameObject.Instantiate(image, transform.position, transform.rotation);
+        controls.transform.SetParent(codePanel.transform, false);
+        GameObject controls2 = GameObject.Instantiate(
+            image,
+            transform.position,
+            transform.rotation
+        );
+        controls2.transform.position += change;
+        controls2.transform.SetParent(codePanel.transform, false);
     }
 
     private static Menu createMenu()
