@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!20 &197633724 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6709654727201604107, guid: 3d575c47b63ebe84fb3026b56b257d28, type: 3}
+  m_PrefabInstance: {fileID: 6709654727618359160}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &307963121
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,6 +422,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4184122426723356288, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 197633724}
+    - target: {fileID: 4184122426723356288, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4184122426723356289, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -451,6 +464,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4184122426723356289, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4184122426723356289, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4184122426723356289, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4184122426723356289, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4184122426723356289, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}
@@ -499,6 +524,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4184122426723356289, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4184122426723356291, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4184122426723356291, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4184122426723356541, guid: 5b3cf27923a54f844b03aacdd7486d10, type: 3}

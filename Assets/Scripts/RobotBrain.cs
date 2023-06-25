@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class RobotBrain : MonoBehaviour
 {
@@ -58,9 +59,15 @@ public class RobotBrain : MonoBehaviour
 
     private void renderItem(MenuItem item, int index)
     {
-        GameObject controls = GameObject.Instantiate(image, transform.position, transform.rotation);
+        GameObject controls = GameObject.Instantiate(
+            image,
+            transform.position,
+            Quaternion.identity
+        );
         controls.transform.SetParent(codePanel.transform, false);
         RectTransform rectTransform = controls.GetComponent<RectTransform>();
+        Button button = controls.GetComponent<Button>();
+        button.onClick.AddListener(() => click(item.id));
         rectTransform.anchoredPosition = new Vector2(index * rectTransform.rect.width, 0);
         controls.GetComponent<TextMeshProUGUI>().text = item.title;
     }
