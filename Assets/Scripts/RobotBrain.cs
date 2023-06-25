@@ -45,6 +45,15 @@ public class RobotBrain : MonoBehaviour
     private void renderMenu(Menu menu)
     {
         Panel currentPanel = menu.panels.Find(panel => panel.id == menu.getActivePanelId());
+        renderPanel(currentPanel);
+    }
+
+    private void renderPanel(Panel currentPanel)
+    {
+        foreach (Transform child in codePanel.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
 
         float scaler = 0.0125f;
         Vector3 change = new Vector3(20 * scaler, 0, 0);
