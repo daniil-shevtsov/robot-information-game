@@ -5,7 +5,7 @@ using TMPro;
 
 public class RobotBrain : MonoBehaviour
 {
-    private Menu menu = createMenu();
+    public Menu menu = createMenu();
 
     public GameObject codePanel;
     public GameObject image;
@@ -101,6 +101,11 @@ public class Menu
 {
     public List<Panel> panels { get; }
     private long activePanelId;
+
+    public Panel activePanel
+    {
+        get { return panels.Find(panel => panel.id == getActivePanelId()); }
+    }
 
     public Menu(List<Panel> panels)
     {

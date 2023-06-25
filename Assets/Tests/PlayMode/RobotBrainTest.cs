@@ -56,16 +56,9 @@ public class RobotBrainTest
     public IEnumerator MainPanelShouldBeVisibleInitially()
     {
         assertVisible(robotBrain.mainPanel, true);
-
-        yield return null;
-    }
-
-    [UnityTest]
-    public IEnumerator MainPanelShouldHaveControlsAndMemoryItems()
-    {
-        assertVisible(robotBrain.mainPanel, true);
-        assertHasItemWith("Controls", robotBrain.mainPanel);
-        assertHasItemWith("Memory", robotBrain.mainPanel);
+        assertActivePanel(robotBrain.menu, robotBrain.mainPanel.id);
+        assertHasItemWith("Controls", robotBrain.menu.activePanel);
+        assertHasItemWith("Memory", robotBrain.menu.activePanel);
 
         yield return null;
     }
@@ -76,8 +69,16 @@ public class RobotBrainTest
         robotBrain.click(robotBrain.mainPanel.items[0].id);
         assertVisible(robotBrain.mainPanel, false);
         assertVisible(robotBrain.controls, true);
+        assertHasItemWith("Controls", robotBrain.mainPanel);
+        assertHasItemWith("Memory", robotBrain.mainPanel);
 
         yield return null;
+    }
+
+    private void assertActivePanel(Menu menu, long expectedPanelId)
+    {
+        Assert.That(menu.getActivePanelId(), Is.EqualTo(expectedPanelId));
+        Assert.That(menu.activePanel.id, Is.EqualTo(expectedPanelId));
     }
 
     private void assertHasItemWith(string title, Panel panel)
