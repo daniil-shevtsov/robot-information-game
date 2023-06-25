@@ -57,8 +57,9 @@ public class RobotBrainTest
     {
         assertVisible(robotBrain.mainPanel, true);
         assertActivePanel(robotBrain.menu, robotBrain.mainPanel.id);
-        assertHasItemWith("Controls", robotBrain.menu.activePanel);
-        assertHasItemWith("Memory", robotBrain.menu.activePanel);
+        assertTitle(robotBrain.activePanel, "Main Menu");
+        assertHasItemWith("Controls", robotBrain.activePanel);
+        assertHasItemWith("Memory", robotBrain.activePanel);
 
         yield return null;
     }
@@ -66,11 +67,13 @@ public class RobotBrainTest
     [UnityTest]
     public IEnumerator ShouldSwitchToControlsWhenControlsClicked()
     {
-        robotBrain.click(robotBrain.mainPanel.items[0].id);
+        robotBrain.click(robotBrain.activePanel.items[0].id);
         assertVisible(robotBrain.mainPanel, false);
         assertVisible(robotBrain.controls, true);
-        assertHasItemWith("Controls", robotBrain.mainPanel);
-        assertHasItemWith("Memory", robotBrain.mainPanel);
+        assertActivePanel(robotBrain.menu, robotBrain.controls.id);
+        assertTitle(robotBrain.activePanel, "Controls");
+        assertHasItemWith("Controls Option 1", robotBrain.activePanel);
+        assertHasItemWith("Controls Option 2", robotBrain.activePanel);
 
         yield return null;
     }
@@ -84,12 +87,21 @@ public class RobotBrainTest
     private void assertHasItemWith(string title, Panel panel)
     {
         MenuItem item = panel.items.Find(item => item.title == title);
-        Assert.That(item, Is.Not.Null);
+        Assert.That(
+            item,
+            Is.Not.Null,
+            $"Panel ({panel.id} {panel.title}) does not have item with title={title}"
+        );
     }
 
     private void assertText(MenuItem view, string expected)
     {
         Assert.That(view.title, Is.EqualTo(expected));
+    }
+
+    private void assertTitle(Panel panel, string expected)
+    {
+        Assert.That(panel.title, Is.EqualTo(expected));
     }
 
     private void assertVisible(MyView view, bool expected)

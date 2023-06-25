@@ -19,6 +19,11 @@ public class RobotBrain : MonoBehaviour
         get { return menu.panels[1]; }
     }
 
+    public Panel activePanel
+    {
+        get { return menu.activePanel; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -127,7 +132,7 @@ public class Menu
 public class Panel : MyView
 {
     public long id;
-    string title;
+    public string title;
     public List<MenuItem> items;
     private bool isVisible = true;
 
